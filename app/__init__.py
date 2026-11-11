@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request
 
 from app.services.promociones_service import cargar_promociones
+from app.services.consultas_service import consultar_cupones_por_departamento
 
 
 def create_app():
@@ -44,10 +45,27 @@ def create_app():
                 tipo="success"
             )
 
-        except (ValueError, Exception) as error:
+        except Exception as error:
             return render_template(
                 "index.html",
                 mensaje=f"No se pudo cargar el archivo: {error}",
+                tipo="danger"
+            )
+
+    @app.route("/consultar-departamentos", methods=["POST"])
+    def consultar_departamentos():
+        try:
+            resultados = consultar_cupones_por_departamento()
+
+            return render_template(
+                "index.html",
+                resultados=resultados
+            )
+
+        except Exception as error:
+            return render_template(
+                "index.html",
+                mensaje=f"No se pudo realizar la consulta: {error}",
                 tipo="danger"
             )
 
