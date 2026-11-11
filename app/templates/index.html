@@ -1,0 +1,77 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Inicio - Sistema de Promociones
+{% endblock %}
+
+{% block content %}
+
+<div class="text-center mb-5">
+    <h1 class="fw-bold">Sistema de Promociones</h1>
+    <p class="text-secondary">
+        Administración de promociones y cupones
+    </p>
+</div>
+
+{% if mensaje %}
+<div class="alert alert-{{ tipo }} alert-dismissible fade show" role="alert">
+    {{ mensaje }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endif %}
+
+<div class="row g-4">
+
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h4 class="card-title">Cargar promociones</h4>
+
+                <p class="text-secondary">
+                    Importar el catálogo de promociones mediante un archivo JSON.
+                </p>
+
+                <form action="{{ url_for('cargar_catalogo') }}"
+                      method="POST"
+                      enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label for="archivo" class="form-label">
+                            Seleccionar archivo JSON
+                        </label>
+
+                        <input
+                            type="file"
+                            class="form-control"
+                            id="archivo"
+                            name="archivo"
+                            accept=".json,application/json"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Cargar promociones
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h4 class="card-title">Consultar por departamento</h4>
+
+                <p class="text-secondary">
+                    Consultar los cupones obtenidos y los clientes distintos.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
